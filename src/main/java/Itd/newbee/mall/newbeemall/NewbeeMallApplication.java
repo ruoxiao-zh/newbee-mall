@@ -3,6 +3,9 @@ package Itd.newbee.mall.newbeemall;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author Richard
+ */
 @SpringBootApplication
 public class NewbeeMallApplication {
 
