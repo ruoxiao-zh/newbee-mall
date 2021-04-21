@@ -1,4 +1,4 @@
-package Itd.newbee.mall.newbeemall.controller;
+package ltd.newbee.mall.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

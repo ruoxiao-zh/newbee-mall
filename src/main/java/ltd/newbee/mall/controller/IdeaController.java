@@ -1,9 +1,12 @@
-package Itd.newbee.mall.newbeemall.controller;
+package ltd.newbee.mall.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * @author richard
+ */
 @Controller
 public class IdeaController {
 
