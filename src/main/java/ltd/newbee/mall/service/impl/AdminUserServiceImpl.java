@@ -30,4 +30,9 @@ public class AdminUserServiceImpl implements AdminUserService {
     
         return adminUserMapper.login(userName, passwordMd5);
     }
+    
+    @Override
+    public AdminUser getUserDetailById(Integer loginUserId) {
+        return adminUserMapper.getUserDetailById(loginUserId);
+    }
 }

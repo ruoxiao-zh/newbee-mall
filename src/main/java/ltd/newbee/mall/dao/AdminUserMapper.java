@@ -10,4 +10,6 @@ import org.apache.ibatis.annotations.Param;
 public interface AdminUserMapper {
     
     AdminUser login(@Param("userName") String userName, @Param("password") String password);
+    
+    AdminUser getUserDetailById(Integer loginUserId);
 }

@@ -72,4 +72,19 @@ public class AdminController {
             return "admin/login";
         }
     }
+    
+    @GetMapping("/profile")
+    public String profile(HttpServletRequest request) {
+        Integer   loginUserId = (int) request.getSession().getAttribute("loginUserId");
+        AdminUser adminUser   = adminUserService.getUserDetailById(loginUserId);
+        if (adminUser == null) {
+            return "admin/login";
+        }
+        
+        request.setAttribute("path", "profile");
+        request.setAttribute("loginUserName", adminUser.getLoginUserName());
+        request.setAttribute("nickName", adminUser.getNickName());
+        
+        return "admin/profile";
+    }
 }
