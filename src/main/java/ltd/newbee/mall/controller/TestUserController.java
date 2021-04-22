@@ -31,11 +31,8 @@ public class TestUserController {
             return ResultGenerator.genFailResult("参数异常");
         }
         
-        System.out.println(requestParam);
-        
         //查询列表数据
         PageQueryUtil pageUtil = new PageQueryUtil(requestParam);
-        System.out.println(pageUtil);
         
         return ResultGenerator.genSuccessResult(testUserService.getUserPage(pageUtil));
     }
