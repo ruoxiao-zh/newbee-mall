@@ -32,4 +32,20 @@
         where id = #{id}
     </delete>
 
+    <!-- 查询用户列表 -->
+    <select id="findUsers" parameterType="Map" resultMap="UserResult">
+        select
+        id,name,password from tb_user
+        order by id desc
+        <if test="page != null and limit != null">
+            limit #{page}, #{limit}
+        </if>
+    </select>
+
+    <!-- 查询用户总数 -->
+    <select id="getTotalUser" parameterType="Map" resultType="int">
+        select count(*)
+        from tb_user
+    </select>
+
 </mapper>
