@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author Richard
  */
-public interface UserDao {
+public interface UserMapper {
 
     /**
      * @return

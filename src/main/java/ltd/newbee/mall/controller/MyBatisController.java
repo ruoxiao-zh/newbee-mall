@@ -1,6 +1,6 @@
 package ltd.newbee.mall.controller;
 
-import ltd.newbee.mall.dao.UserDao;
+import ltd.newbee.mall.dao.UserMapper;
 import ltd.newbee.mall.entity.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,11 +15,11 @@ import java.util.List;
 @RestController
 public class MyBatisController {
     @Resource
-    UserDao userDao;
+    UserMapper userMapper;
 
     @GetMapping("/users/mybatis/queryAll")
     public List<User> queryAll() {
-        return userDao.findAllUsers();
+        return userMapper.findAllUsers();
     }
 
     @GetMapping("/users/mybatis/insert")
@@ -32,7 +32,7 @@ public class MyBatisController {
         user.setName(name);
         user.setPassword(password);
 
-        return userDao.insertUser(user) > 0;
+        return userMapper.insertUser(user) > 0;
     }
 
     @GetMapping("/users/mybatis/update")
@@ -46,7 +46,7 @@ public class MyBatisController {
         user.setName(name);
         user.setPassword(password);
 
-        return userDao.updateUser(user) > 0;
+        return userMapper.updateUser(user) > 0;
     }
 
     @GetMapping("/users/mybatis/delete")
@@ -55,6 +55,6 @@ public class MyBatisController {
             return false;
         }
 
-        return userDao.deleteUser(id) > 0;
+        return userMapper.deleteUser(id) > 0;
     }
 }
