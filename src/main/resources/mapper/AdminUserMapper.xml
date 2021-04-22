@@ -18,18 +18,64 @@
         select
         <include refid="Base_Column_List"/>
         from tb_newbee_mall_admin_user
-        where login_user_name = #{userName, jdbcType=VARCHAR} AND login_password=#{password, jdbcType=VARCHAR} AND locked
+        where login_user_name = #{userName, jdbcType=VARCHAR} AND login_password=#{password, jdbcType=VARCHAR} AND
+        locked
         = 0
     </select>
 
     <select id="getUserDetailById" resultMap="AdminUserResult">
         select
-            <include refid="Base_Column_List"/>
-        from tb_newbee_mall_admin_user
+        <include refid="Base_Column_List"/>
+        from
+        tb_newbee_mall_admin_user
         where
-            admin_user_id = #{loginUserId, jdbcType=VARCHAR}
+        admin_user_id = #{loginUserId, jdbcType=VARCHAR}
         AND
-            locked = 0
+        locked = 0
     </select>
+
+    <select id="selectByPrimaryKey" resultMap="AdminUserResult">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        tb_newbee_mall_admin_user
+        where
+        admin_user_id = #{loginUserId, jdbcType=VARCHAR}
+        AND
+        locked = 0
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="ltd.newbee.mall.entity.AdminUser">
+        update
+            tb_newbee_mall_admin_user
+        <set>
+            <if test="loginUserName != null">
+                login_user_name = #{loginUserName, jdbcType=VARCHAR},
+            </if>
+            <if test="loginPassword != null">
+                login_password = #{loginPassword, jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null">
+                nick_name = #{nickName, jdbcType=VARCHAR},
+            </if>
+            <if test="locked != null">
+                locked = #{locked, jdbcType=TINYINT},
+            </if>
+        </set>
+        where
+            admin_user_id = #{adminUserId, jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="ltd.newbee.mall.entity.AdminUser">
+        update
+            tb_newbee_mall_admin_user
+        set
+            login_user_name = #{loginUserName, jdbcType=VARCHAR},
+            login_password  = #{loginPassword, jdbcType=VARCHAR},
+            nick_name       = #{nickName, jdbcType=VARCHAR},
+            locked          = #{locked, jdbcType=TINYINT}
+        where
+              admin_user_id = #{adminUserId, jdbcType=INTEGER}
+    </update>
 
 </mapper>

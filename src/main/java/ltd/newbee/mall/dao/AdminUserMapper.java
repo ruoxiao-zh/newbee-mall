@@ -12,4 +12,10 @@ public interface AdminUserMapper {
     AdminUser login(@Param("userName") String userName, @Param("password") String password);
     
     AdminUser getUserDetailById(Integer loginUserId);
+    
+    AdminUser selectByPrimaryKey(Integer adminUserId);
+    
+    int updateByPrimaryKeySelective(AdminUser adminUser);
+    
+    int updateByPrimaryKey(AdminUser record);
 }

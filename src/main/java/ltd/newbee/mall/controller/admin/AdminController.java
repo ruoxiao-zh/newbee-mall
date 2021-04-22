@@ -1,12 +1,10 @@
 package ltd.newbee.mall.controller.admin;
 
+import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.entity.AdminUser;
 import ltd.newbee.mall.service.AdminUserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -86,5 +84,52 @@ public class AdminController {
         request.setAttribute("nickName", adminUser.getNickName());
         
         return "admin/profile";
+    }
+    
+    @PostMapping("/profile/password")
+    @ResponseBody
+    public String passwordUpdate(HttpServletRequest request,
+                                 @RequestParam("originPassword") String originPassword,
+                                 @RequestParam("newPassword") String newPassword) {
+        if (StringUtils.isEmpty(originPassword) || StringUtils.isEmpty(newPassword)) {
+            return "参数不能为空";
+        }
+        
+        Integer loginUserId = (int) request.getSession().getAttribute("loginUserId");
+        if (adminUserService.updatePassword(loginUserId, originPassword, newPassword)) {
+            request.getSession().removeAttribute("loginUserId");
+            request.getSession().removeAttribute("loginUser");
+            request.getSession().removeAttribute("errorMsg");
+            
+            return ServiceResultEnum.SUCCESS.getResult();
+        }
+        
+        return "修改失败";
+    }
+    
+    @PostMapping("/profile/name")
+    @ResponseBody
+    public String nameUpdate(HttpServletRequest request,
+                             @RequestParam("loginUserName") String loginUserName,
+                             @RequestParam("nickName") String nickName) {
+        if (StringUtils.isEmpty(loginUserName) || StringUtils.isEmpty(nickName)) {
+            return "参数不能为空";
+        }
+        
+        Integer loginUserId = (int) request.getSession().getAttribute("loginUserId");
+        if (adminUserService.updateName(loginUserId, loginUserName, nickName)) {
+            return "success";
+        }
+        
+        return "修改失败";
+    }
+    
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        request.getSession().removeAttribute("loginUserId");
+        request.getSession().removeAttribute("loginUser");
+        request.getSession().removeAttribute("errorMsg");
+        
+        return "admin/login";
     }
 }
