@@ -48,7 +48,7 @@ public class UploadController {
             e.printStackTrace();
         }
         
-        return "上传成功";
+        return "上传成功，图片地址为：/upload/" + newFileName;
     }
     
     @GetMapping("/upload")
