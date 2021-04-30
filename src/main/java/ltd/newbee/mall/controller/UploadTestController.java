@@ -17,11 +17,11 @@ import java.util.Random;
  * @Date 2021/4/23 2:44 PM
  */
 @Controller
-public class UploadController {
+public class UploadTestController {
     
     private final static String FILE_UPLOAD_PATH = "/Users/ellison/code/newbee-mall/src/main/resources/static/upload/";
     
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/upload/test", method = RequestMethod.POST)
     @ResponseBody
     public String upload(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
@@ -51,7 +51,7 @@ public class UploadController {
         return "上传成功，图片地址为：/upload/" + newFileName;
     }
     
-    @GetMapping("/upload")
+    @GetMapping("/upload/test")
     public String upload() {
         return "upload-test";
     }

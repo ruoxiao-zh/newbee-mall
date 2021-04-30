@@ -5,8 +5,8 @@ package ltd.newbee.mall.common;
  * @Date 2021/4/22 6:52 PM
  */
 public class Constants {
-    // public final static String FILE_UPLOAD_DIC = "/opt/image/upload/";//上传文件的默认url前缀，根据部署设置自行修改
-    // public final static String FILE_UPLOAD_DIC = "D:\\upload\\";//上传文件的默认url前缀，根据部署设置自行修改
+    public final static String FILE_UPLOAD_DIC = "/Users/ellison/code/newbee-mall/src/main/resources/static/upload/";//上传文件的默认url前缀，根据部署设置自行修改
+    //public final static String FILE_UPLOAD_DIC = "D:\\upload\\";//上传文件的默认url前缀，根据部署设置自行修改
     public final static int    INDEX_CAROUSEL_NUMBER           = 5;//首页轮播图数量(可根据自身需求修改)
     public final static int    INDEX_CATEGORY_NUMBER           = 10;//首页一级分类的最大数量
     public final static int    SEARCH_CATEGORY_NUMBER          = 8;//搜索页一级分类的最大数量

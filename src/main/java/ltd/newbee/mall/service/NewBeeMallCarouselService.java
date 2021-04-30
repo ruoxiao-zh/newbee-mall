@@ -15,4 +15,6 @@ public interface NewBeeMallCarouselService {
     Boolean deleteBatch(Integer[] ids);
     
     String saveCarousel(Carousel carousel);
+    
+    String updateCarousel(Carousel carousel);
 }
