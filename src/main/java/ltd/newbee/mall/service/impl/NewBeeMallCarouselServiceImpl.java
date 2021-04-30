@@ -53,6 +53,7 @@ public class NewBeeMallCarouselServiceImpl implements NewBeeMallCarouselService 
         if (temp == null) {
             return ServiceResultEnum.DATA_NOT_EXIST.getResult();
         }
+        
         temp.setCarouselRank(carousel.getCarouselRank());
         temp.setRedirectUrl(carousel.getRedirectUrl());
         temp.setCarouselUrl(carousel.getCarouselUrl());
@@ -60,6 +61,12 @@ public class NewBeeMallCarouselServiceImpl implements NewBeeMallCarouselService 
         if (carouselMapper.updateByPrimaryKeySelective(temp) > 0) {
             return ServiceResultEnum.SUCCESS.getResult();
         }
+        
         return ServiceResultEnum.DB_ERROR.getResult();
+    }
+    
+    @Override
+    public Carousel getCarouselById(Integer id) {
+        return carouselMapper.selectByPrimaryKey(id);
     }
 }

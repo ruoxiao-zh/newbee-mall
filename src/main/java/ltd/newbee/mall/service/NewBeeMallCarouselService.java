@@ -17,4 +17,6 @@ public interface NewBeeMallCarouselService {
     String saveCarousel(Carousel carousel);
     
     String updateCarousel(Carousel carousel);
+    
+    Carousel getCarouselById(Integer id);
 }

@@ -85,4 +85,31 @@ public class NewBeeMallCarouselController {
         
         return ResultGenerator.genFailResult(result);
     }
+    
+    @RequestMapping(value = "carousels/info/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Result show(@PathVariable("id") Integer id) {
+        Carousel carousel = newBeeMallCarouselService.getCarouselById(id);
+        if (carousel == null) {
+            return ResultGenerator.genFailResult(ServiceResultEnum.DATA_NOT_EXIST.getResult());
+        }
+        
+        return ResultGenerator.genSuccessResult(carousel);
+    }
+    
+    @RequestMapping(value = "/carousels/update", method = RequestMethod.POST)
+    @ResponseBody
+    public Result update(@RequestBody Carousel carousel) {
+        if (org.springframework.util.StringUtils.isEmpty(carousel.getCarouselUrl())
+                || Objects.isNull(carousel.getCarouselRank())) {
+            return ResultGenerator.genFailResult("参数异常");
+        }
+    
+        String result = newBeeMallCarouselService.updateCarousel(carousel);
+        if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
+            return ResultGenerator.genSuccessResult();
+        }
+    
+        return ResultGenerator.genFailResult(result);
+    }
 }

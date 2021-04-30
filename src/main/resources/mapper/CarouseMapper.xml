@@ -72,9 +72,9 @@
         select
             <include refid="Base_Column_List"/>
         from
-                tb_newbee_mall_admin_user
+            tb_newbee_mall_carousel
         where
-              admin_user_id = #{adminUserId, jdbcType=INTEGER}
+            carousel_id = #{carouselId, jdbcType=INTEGER}
     </select>
 
     <insert id="insertSelective" parameterType="ltd.newbee.mall.entity.Carousel">
