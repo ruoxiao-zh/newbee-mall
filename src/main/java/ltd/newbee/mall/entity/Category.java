@@ -9,9 +9,9 @@ import java.util.Date;
  * @Date 2021/4/30 4:11 PM
  */
 public class Category {
-    public Integer categoryId;
+    public Long    categoryId;
     public Byte    categoryLevel;
-    public Integer parentId;
+    public Long    parentId;
     public String  categoryName;
     public Integer categoryRank;
     public Byte    isDeleted;
@@ -22,11 +22,11 @@ public class Category {
     public Date    updateTime;
     public Integer updateUser;
     
-    public Integer getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
     
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
     
@@ -38,11 +38,11 @@ public class Category {
         this.categoryLevel = categoryLevel;
     }
     
-    public Integer getParentId() {
+    public Long getParentId() {
         return parentId;
     }
     
-    public void setParentId(Integer parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
     

@@ -22,7 +22,9 @@ public interface CategoryMapper {
     
     int deleteBatch(Integer[] ids);
     
-    Category getCategoryById(Integer id);
+    Category getCategoryById(Long id);
     
     int updateByPrimaryKeySelective(Category category);
+    
+    List<Category> selectByLevelAndParentIdsAndNumber(@Param("parentIds") List<Long> parentIds, @Param("categoryLevel") int categoryLevel, @Param("number") int number);
 }

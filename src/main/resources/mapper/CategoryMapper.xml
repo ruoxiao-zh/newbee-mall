@@ -196,4 +196,27 @@
         where
             category_id = #{categoryId, jdbcType=BIGINT}
     </update>
+
+    <select id="selectByLevelAndParentIdsAndNumber" resultMap="CategoryResult">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            tb_newbee_mall_goods_category
+        where
+            parent_id
+        in
+        <foreach item="parentId" collection="parentIds" open="(" separator="," close=")">
+            #{parentId,jdbcType=BIGINT}
+        </foreach>
+        and
+            category_level = #{categoryLevel,jdbcType=TINYINT}
+        and
+            is_deleted = 0
+        order by
+            category_rank
+        desc
+        <if test="number>0">
+            limit #{number}
+        </if>
+    </select>
 </mapper>

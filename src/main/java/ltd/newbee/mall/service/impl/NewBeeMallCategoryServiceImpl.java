@@ -73,4 +73,9 @@ public class NewBeeMallCategoryServiceImpl implements NewBeeMallCategoryService 
     
         return ServiceResultEnum.DB_ERROR.getResult();
     }
+    
+    @Override
+    public List<Category> selectByLevelAndParentIdsAndNumber(List<Long> parentIds, int categoryLevel) {
+        return categoryMapper.selectByLevelAndParentIdsAndNumber(parentIds, categoryLevel, 0);//0代表查询所有
+    }
 }

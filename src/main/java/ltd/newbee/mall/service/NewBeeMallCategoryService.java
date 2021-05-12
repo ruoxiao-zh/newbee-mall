@@ -4,6 +4,8 @@ import ltd.newbee.mall.entity.Category;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
 
+import java.util.List;
+
 /**
  * @Author Richard
  * @Date 2021/4/30 4:10 PM
@@ -16,4 +18,6 @@ public interface NewBeeMallCategoryService {
     Boolean deleteBatch(Integer[] ids);
     
     String updateCategory(Category category);
+    
+    List<Category> selectByLevelAndParentIdsAndNumber(List<Long> parentIds, int categoryLevel);
 }

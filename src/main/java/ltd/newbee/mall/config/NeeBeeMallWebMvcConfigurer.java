@@ -19,10 +19,10 @@ public class NeeBeeMallWebMvcConfigurer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 添加一个拦截器，拦截以 /admin 为前缀的 url 路径（后台登陆拦截）
-        registry.addInterceptor(adminLoginInterceptor)
-                .addPathPatterns("/admin/**")
-                .excludePathPatterns("/admin/login")
-                .excludePathPatterns("/admin/dist/**")
-                .excludePathPatterns("/admin/plugins/**");
+//        registry.addInterceptor(adminLoginInterceptor)
+//                .addPathPatterns("/admin/**")
+//                .excludePathPatterns("/admin/login")
+//                .excludePathPatterns("/admin/dist/**")
+//                .excludePathPatterns("/admin/plugins/**");
     }
 }
