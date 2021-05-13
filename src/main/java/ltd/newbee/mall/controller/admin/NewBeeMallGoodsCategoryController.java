@@ -1,5 +1,6 @@
 package ltd.newbee.mall.controller.admin;
 
+import ltd.newbee.mall.common.NewBeeMallCategoryLevelEnum;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.entity.Category;
 import ltd.newbee.mall.service.NewBeeMallCategoryService;
@@ -7,13 +8,13 @@ import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.Result;
 import ltd.newbee.mall.util.ResultGenerator;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @Author Richard
@@ -102,5 +103,49 @@ public class NewBeeMallGoodsCategoryController {
         }
         
         return ResultGenerator.genFailResult("删除失败");
+    }
+    
+    /**
+     * 列表
+     */
+    @RequestMapping(value = "/categories/listForSelect", method = RequestMethod.GET)
+    @ResponseBody
+    public Result listForSelect(@RequestParam("categoryId") Long categoryId) {
+        System.out.println(categoryId);
+        if (categoryId == null || categoryId < 1) {
+            return ResultGenerator.genFailResult("缺少参数！");
+        }
+        Category category = newBeeMallCategoryService.getCategoryById(categoryId);
+        // 既不是一级分类也不是二级分类则为不返回数据
+        if (category == null || category.getCategoryLevel() == NewBeeMallCategoryLevelEnum.LEVEL_THREE.getLevel()) {
+            return ResultGenerator.genFailResult("参数异常！");
+        }
+        Map categoryResult = new HashMap(4);
+        if (category.getCategoryLevel() == NewBeeMallCategoryLevelEnum.LEVEL_ONE.getLevel()) {
+            //如果是一级分类则返回当前一级分类下的所有二级分类，以及二级分类列表中第一条数据下的所有三级分类列表
+            //查询一级分类列表中第一个实体的所有二级分类
+            List<Category> secondLevelCategories = newBeeMallCategoryService.selectByLevelAndParentIdsAndNumber(
+                    Collections.singletonList(categoryId),
+                    NewBeeMallCategoryLevelEnum.LEVEL_TWO.getLevel());
+            if (!CollectionUtils.isEmpty(secondLevelCategories)) {
+                //查询二级分类列表中第一个实体的所有三级分类
+                List<Category> thirdLevelCategories = newBeeMallCategoryService.selectByLevelAndParentIdsAndNumber(
+                        Collections.singletonList(secondLevelCategories.get(0).getCategoryId()),
+                        NewBeeMallCategoryLevelEnum.LEVEL_THREE.getLevel());
+                
+                categoryResult.put("secondLevelCategories", secondLevelCategories);
+                categoryResult.put("thirdLevelCategories", thirdLevelCategories);
+            }
+        }
+        if (category.getCategoryLevel() == NewBeeMallCategoryLevelEnum.LEVEL_TWO.getLevel()) {
+            //如果是二级分类则返回当前分类下的所有三级分类列表
+            List<Category> thirdLevelCategories = newBeeMallCategoryService.selectByLevelAndParentIdsAndNumber(
+                    Collections.singletonList(categoryId),
+                    NewBeeMallCategoryLevelEnum.LEVEL_THREE.getLevel());
+            
+            categoryResult.put("thirdLevelCategories", thirdLevelCategories);
+        }
+        
+        return ResultGenerator.genSuccessResult(categoryResult);
     }
 }

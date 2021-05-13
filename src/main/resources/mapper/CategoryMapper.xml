@@ -3,9 +3,9 @@
 <mapper namespace="ltd.newbee.mall.dao.CategoryMapper">
 
     <resultMap id="CategoryResult" type="ltd.newbee.mall.entity.Category">
-        <result property="categoryId" column="category_id" jdbcType="INTEGER"/>
+        <result property="categoryId" column="category_id" jdbcType="BIGINT"/>
         <result property="categoryLevel" column="category_level" jdbcType="INTEGER"/>
-        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
         <result property="categoryName" column="category_name" jdbcType="VARCHAR"/>
         <result property="categoryRank" column="category_rank" jdbcType="INTEGER"/>
         <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
@@ -44,14 +44,14 @@
 
     <select id="getTotalGoodsCategories" resultType="int">
         select
-               count(1)
+            count(1)
         from
             tb_newbee_mall_goods_category
         where
-              is_deleted = 0
+            is_deleted = 0
     </select>
 
-    <select id="selectByLevelAndName" resultType="ltd.newbee.mall.entity.Category">
+    <select id="selectByLevelAndName" resultMap="CategoryResult">
         select
             <include refid="Base_Column_List"/>
         from
@@ -148,7 +148,7 @@
         </foreach>
     </update>
 
-    <select id="getCategoryById" resultType="ltd.newbee.mall.entity.Category">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="CategoryResult">
         select
             <include refid="Base_Column_List"/>
         from

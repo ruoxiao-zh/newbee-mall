@@ -22,7 +22,7 @@ public interface CategoryMapper {
     
     int deleteBatch(Integer[] ids);
     
-    Category getCategoryById(Long id);
+    Category selectByPrimaryKey(Long categoryId);
     
     int updateByPrimaryKeySelective(Category category);
     

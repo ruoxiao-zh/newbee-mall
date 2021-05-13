@@ -20,4 +20,6 @@ public interface NewBeeMallCategoryService {
     String updateCategory(Category category);
     
     List<Category> selectByLevelAndParentIdsAndNumber(List<Long> parentIds, int categoryLevel);
+    
+    Category getCategoryById(Long categoryId);
 }

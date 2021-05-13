@@ -12,6 +12,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -29,7 +30,7 @@ import java.util.Map;
 public class NewBeeMallGoodsController {
     
     @Resource
-    NewBeeMallGoodsService newBeeMallGoodsService;
+    private NewBeeMallGoodsService newBeeMallGoodsService;
     
     @Resource
     private NewBeeMallCategoryService newBeeMallCategoryService;
@@ -42,6 +43,7 @@ public class NewBeeMallGoodsController {
     }
     
     @GetMapping("/goods/list")
+    @ResponseBody
     public Result list(@RequestParam Map<String, Object> params) {
         if (StringUtils.isEmpty((String) params.get("page")) ||
                 StringUtils.isEmpty((String) params.get("limit"))) {
@@ -61,10 +63,11 @@ public class NewBeeMallGoodsController {
         List<Category> firstLevelCategories = newBeeMallCategoryService.selectByLevelAndParentIdsAndNumber(
                 Collections.singletonList(0L),
                 NewBeeMallCategoryLevelEnum.LEVEL_ONE.getLevel());
+        System.out.println(firstLevelCategories);
         if (!CollectionUtils.isEmpty(firstLevelCategories)) {
             List<Category> secondLevelCategories = newBeeMallCategoryService.selectByLevelAndParentIdsAndNumber(
                     Collections.singletonList(firstLevelCategories.get(0).getCategoryId()),
-                    NewBeeMallCategoryLevelEnum.LEVEL_ONE.getLevel());
+                    NewBeeMallCategoryLevelEnum.LEVEL_TWO.getLevel());
     
             if (!CollectionUtils.isEmpty(secondLevelCategories)) {
                 //查询二级分类列表中第一个实体的所有三级分类

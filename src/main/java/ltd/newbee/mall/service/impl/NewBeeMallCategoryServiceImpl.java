@@ -55,7 +55,7 @@ public class NewBeeMallCategoryServiceImpl implements NewBeeMallCategoryService 
     
     @Override
     public String updateCategory(Category category) {
-        Category temp = categoryMapper.getCategoryById(category.getCategoryId());
+        Category temp = categoryMapper.selectByPrimaryKey(category.getCategoryId());
         if (temp != null) {
             return ServiceResultEnum.SAME_CATEGORY_EXIST.getResult();
         }
@@ -76,6 +76,15 @@ public class NewBeeMallCategoryServiceImpl implements NewBeeMallCategoryService 
     
     @Override
     public List<Category> selectByLevelAndParentIdsAndNumber(List<Long> parentIds, int categoryLevel) {
-        return categoryMapper.selectByLevelAndParentIdsAndNumber(parentIds, categoryLevel, 0);//0代表查询所有
+        // 0 代表查询所有
+        return categoryMapper.selectByLevelAndParentIdsAndNumber(parentIds, categoryLevel, 0);
+    }
+    
+    @Override
+    public Category getCategoryById(Long categoryId) {
+        Category category = categoryMapper.selectByPrimaryKey(categoryId);
+        System.out.println(category);
+        
+        return category;
     }
 }
