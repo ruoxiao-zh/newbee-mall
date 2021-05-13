@@ -1,5 +1,7 @@
 package ltd.newbee.mall.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * @Author Richard
  * @Date 2021/5/11 4:25 PM
@@ -8,7 +10,7 @@ public class Goods {
     public Long    goodsId;
     public String  goodsName;
     public String  goodsIntro;
-    public Integer goodsCategoryId;
+    public Long    goodsCategoryId;
     public String  goodsCoverImg;
     public String  goodsCarousel;
     public String  goodsDetailContent;
@@ -18,8 +20,10 @@ public class Goods {
     public String  tag;
     public String  goodsSellStatus;
     public Integer createUser;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public String  createTime;
     public Integer updateUser;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public String  updateTime;
     
     public Long getGoodsId() {
@@ -46,11 +50,11 @@ public class Goods {
         this.goodsIntro = goodsIntro;
     }
     
-    public Integer getGoodsCategoryId() {
+    public Long getGoodsCategoryId() {
         return goodsCategoryId;
     }
     
-    public void setGoodsCategoryId(Integer goodsCategoryId) {
+    public void setGoodsCategoryId(Long goodsCategoryId) {
         this.goodsCategoryId = goodsCategoryId;
     }
     

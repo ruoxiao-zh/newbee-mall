@@ -14,4 +14,6 @@ public interface GoodsMapper {
     List<Goods> findGoodsList(PageQueryUtil pageQueryUtil);
     
     int getTotalGoodsMapper(PageQueryUtil pageQueryUtil);
+    
+    int insertGoods(Goods goods);
 }

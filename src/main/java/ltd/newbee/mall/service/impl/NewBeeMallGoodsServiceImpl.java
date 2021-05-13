@@ -1,5 +1,6 @@
 package ltd.newbee.mall.service.impl;
 
+import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.dao.GoodsMapper;
 import ltd.newbee.mall.entity.Goods;
 import ltd.newbee.mall.service.NewBeeMallGoodsService;
@@ -26,5 +27,14 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
         int         total = goodsMapper.getTotalGoodsMapper(pageQueryUtil);
         
         return new PageResult(goods, total, pageQueryUtil.getLimit(), pageQueryUtil.getPage());
+    }
+    
+    @Override
+    public String saveNewBeeMallGoods(Goods goods) {
+        if (goodsMapper.insertGoods(goods) > 0) {
+            return ServiceResultEnum.SUCCESS.getResult();
+        }
+        
+        return ServiceResultEnum.DB_ERROR.getResult();
     }
 }
