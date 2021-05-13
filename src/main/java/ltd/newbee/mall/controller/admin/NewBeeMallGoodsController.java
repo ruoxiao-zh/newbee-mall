@@ -63,7 +63,6 @@ public class NewBeeMallGoodsController {
         List<Category> firstLevelCategories = newBeeMallCategoryService.selectByLevelAndParentIdsAndNumber(
                 Collections.singletonList(0L),
                 NewBeeMallCategoryLevelEnum.LEVEL_ONE.getLevel());
-        System.out.println(firstLevelCategories);
         if (!CollectionUtils.isEmpty(firstLevelCategories)) {
             List<Category> secondLevelCategories = newBeeMallCategoryService.selectByLevelAndParentIdsAndNumber(
                     Collections.singletonList(firstLevelCategories.get(0).getCategoryId()),
