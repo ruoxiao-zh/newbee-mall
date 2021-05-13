@@ -152,4 +152,36 @@
             </if>
         </trim>
     </insert>
+
+    <select id="selectById" parameterType="Map" resultMap="GoodsResult">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            tb_newbee_mall_goods_info
+        where
+              goods_id = #{goodsId, jdbcType=BIGINT}
+        limit
+            1
+    </select>
+
+    <update id="updateByPrimaryKey" parameterType="ltd.newbee.mall.entity.Goods">
+        update
+            tb_newbee_mall_goods_info
+        set
+            goods_name = #{goodsName, jdbcType=VARCHAR},
+            goods_intro = #{goodsIntro, jdbcType=VARCHAR},
+            goods_cover_img = #{goodsCoverImg, jdbcType=VARCHAR},
+            goods_carousel = #{goodsCarousel, jdbcType=VARCHAR},
+            original_price = #{originalPrice, jdbcType=INTEGER},
+            selling_price = #{sellingPrice, jdbcType=INTEGER},
+            stock_num = #{stockNum, jdbcType=INTEGER},
+            tag = #{tag, jdbcType=VARCHAR},
+            goods_sell_status = #{goodsSellStatus, jdbcType=TINYINT},
+            create_user = #{createUser, jdbcType=INTEGER},
+            create_time = #{createTime, jdbcType=TIMESTAMP},
+            update_user = #{updateUser, jdbcType=INTEGER},
+            update_time = #{updateTime, jdbcType=TIMESTAMP}
+        where
+              goods_id = #{goodsId, jdbcType=BIGINT}
+    </update>
 </mapper>

@@ -16,4 +16,8 @@ public interface GoodsMapper {
     int getTotalGoodsMapper(PageQueryUtil pageQueryUtil);
     
     int insertGoods(Goods goods);
+    
+    Goods selectById(Long goodsId);
+    
+    int updateByPrimaryKey(Goods goods);
 }

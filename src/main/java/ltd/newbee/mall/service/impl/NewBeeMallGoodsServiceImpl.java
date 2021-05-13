@@ -6,6 +6,7 @@ import ltd.newbee.mall.entity.Goods;
 import ltd.newbee.mall.service.NewBeeMallGoodsService;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
+import ltd.newbee.mall.util.ResultGenerator;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -32,6 +33,25 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
     @Override
     public String saveNewBeeMallGoods(Goods goods) {
         if (goodsMapper.insertGoods(goods) > 0) {
+            return ServiceResultEnum.SUCCESS.getResult();
+        }
+        
+        return ServiceResultEnum.DB_ERROR.getResult();
+    }
+    
+    @Override
+    public Goods getGoodsById(long goodsId) {
+        return goodsMapper.selectById(goodsId);
+    }
+    
+    @Override
+    public String updateNewBeeMallGoods(Goods goods) {
+        Goods temp = goodsMapper.selectById(goods.getGoodsId());
+        if (temp == null) {
+            return ServiceResultEnum.ERROR.getResult();
+        }
+    
+        if (goodsMapper.updateByPrimaryKey(goods) > 0) {
             return ServiceResultEnum.SUCCESS.getResult();
         }
         

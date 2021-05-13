@@ -13,4 +13,8 @@ public interface NewBeeMallGoodsService {
     PageResult getGoodsPage(PageQueryUtil pageQueryUtil);
     
     String saveNewBeeMallGoods(Goods goods);
+    
+    Goods getGoodsById(long goodsId);
+    
+    String updateNewBeeMallGoods(Goods goods);
 }
