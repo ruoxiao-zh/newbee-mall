@@ -1,14 +1,18 @@
 package ltd.newbee.mall.service.impl;
 
 import ltd.newbee.mall.common.ServiceResultEnum;
+import ltd.newbee.mall.controller.vo.NewBeeMallIndexCarouselVO;
 import ltd.newbee.mall.dao.CarouselMapper;
 import ltd.newbee.mall.entity.Carousel;
 import ltd.newbee.mall.service.NewBeeMallCarouselService;
+import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,8 +28,8 @@ public class NewBeeMallCarouselServiceImpl implements NewBeeMallCarouselService 
     
     @Override
     public PageResult getCarouselPage(PageQueryUtil pageQueryUtil) {
-        List<Carousel>  carousels = carouselMapper.getCarouselPage(pageQueryUtil.getPage(), pageQueryUtil.getLimit());
-        int total = carouselMapper.getTotalCarousels();
+        List<Carousel> carousels = carouselMapper.getCarouselPage(pageQueryUtil.getPage(), pageQueryUtil.getLimit());
+        int            total     = carouselMapper.getTotalCarousels();
         
         return new PageResult(carousels, total, pageQueryUtil.getLimit(), pageQueryUtil.getPage());
     }
@@ -68,5 +72,16 @@ public class NewBeeMallCarouselServiceImpl implements NewBeeMallCarouselService 
     @Override
     public Carousel getCarouselById(Integer id) {
         return carouselMapper.selectByPrimaryKey(id);
+    }
+    
+    @Override
+    public List<NewBeeMallIndexCarouselVO> getCarouselsForIndex(int number) {
+        List<NewBeeMallIndexCarouselVO> newBeeMallIndexCarouselVOS = new ArrayList<>(number);
+        List<Carousel>                  carousels                  = carouselMapper.findCarouselsByNum(number);
+        if (!CollectionUtils.isEmpty(carousels)) {
+            newBeeMallIndexCarouselVOS = BeanUtil.copyList(carousels, NewBeeMallIndexCarouselVO.class);
+        }
+        
+        return newBeeMallIndexCarouselVOS;
     }
 }

@@ -1,8 +1,12 @@
 package ltd.newbee.mall.service;
 
+import ltd.newbee.mall.common.Constants;
+import ltd.newbee.mall.controller.vo.NewBeeMallIndexCarouselVO;
 import ltd.newbee.mall.entity.Carousel;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
+
+import java.util.List;
 
 /**
  * @Author Richard
@@ -19,4 +23,6 @@ public interface NewBeeMallCarouselService {
     String updateCarousel(Carousel carousel);
     
     Carousel getCarouselById(Integer id);
+    
+    List<NewBeeMallIndexCarouselVO> getCarouselsForIndex(int number);
 }

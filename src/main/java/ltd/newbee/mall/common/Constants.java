@@ -1,8 +1,8 @@
 package ltd.newbee.mall.common;
 
 /**
- * @Author Richard
- * @Date 2021/4/22 6:52 PM
+ * @author Richard
+ * @date 2021/4/22 2:52 PM
  */
 public class Constants {
     public final static String FILE_UPLOAD_DIC = "/Users/ellison/code/newbee-mall/src/main/resources/static/upload/";//上传文件的默认url前缀，根据部署设置自行修改

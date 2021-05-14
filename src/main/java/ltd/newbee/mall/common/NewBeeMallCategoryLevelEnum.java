@@ -1,8 +1,8 @@
 package ltd.newbee.mall.common;
 
 /**
- * @Author Richard
- * @Date 2021/4/22 2:52 PM
+ * @author Richard
+ * @date 2021/4/22 2:52 PM
  */
 public enum NewBeeMallCategoryLevelEnum {
     

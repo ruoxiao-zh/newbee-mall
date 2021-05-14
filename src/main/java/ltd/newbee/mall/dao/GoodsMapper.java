@@ -22,4 +22,6 @@ public interface GoodsMapper {
     int updateByPrimaryKey(Goods goods);
     
     int updateSellStatusBatch(Long[] ids, int goodsSellStatus);
+    
+    List<Goods> selectByPrimaryKeys(List<Long> goodsIds);
 }

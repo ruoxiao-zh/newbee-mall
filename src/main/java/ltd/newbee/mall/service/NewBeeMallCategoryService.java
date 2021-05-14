@@ -1,5 +1,6 @@
 package ltd.newbee.mall.service;
 
+import ltd.newbee.mall.controller.vo.NewBeeMallIndexCategoryVO;
 import ltd.newbee.mall.entity.Category;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
@@ -22,4 +23,6 @@ public interface NewBeeMallCategoryService {
     List<Category> selectByLevelAndParentIdsAndNumber(List<Long> parentIds, int categoryLevel);
     
     Category getCategoryById(Long categoryId);
+    
+    List<NewBeeMallIndexCategoryVO> getCategoriesForIndex();
 }

@@ -1,6 +1,7 @@
 package ltd.newbee.mall.dao;
 
 import ltd.newbee.mall.entity.Carousel;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -23,4 +24,6 @@ public interface CarouselMapper {
     int insertSelective(Carousel record);
     
     int updateByPrimaryKeySelective(Carousel record);
+    
+    List<Carousel> findCarouselsByNum(@Param("number") int number);
 }
