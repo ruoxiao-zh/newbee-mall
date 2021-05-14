@@ -1,5 +1,6 @@
 package ltd.newbee.mall.controller.admin;
 
+import ltd.newbee.mall.common.Constants;
 import ltd.newbee.mall.common.NewBeeMallCategoryLevelEnum;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.entity.Category;
@@ -209,5 +210,23 @@ public class NewBeeMallGoodsController {
         }
     
         return ResultGenerator.genFailResult(result);
+    }
+    
+    @RequestMapping(value = "/goods/status/{sellStatus}", method = RequestMethod.PUT)
+    @ResponseBody
+    public Result updateStatus(@RequestBody Long[] ids, @PathVariable("sellStatus") int sellStatus) {
+        if (ids.length < 1) {
+            return ResultGenerator.genFailResult("参数异常！");
+        }
+    
+        if (sellStatus != Constants.SELL_STATUS_UP && sellStatus != Constants.SELL_STATUS_DOWN) {
+            return ResultGenerator.genFailResult("状态异常！");
+        }
+    
+        if (newBeeMallGoodsService.updateSellStatus(ids, sellStatus)) {
+            return ResultGenerator.genSuccessResult();
+        }
+    
+        return ResultGenerator.genFailResult("删除失败");
     }
 }

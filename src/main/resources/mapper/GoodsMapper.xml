@@ -182,6 +182,20 @@
             update_user = #{updateUser, jdbcType=INTEGER},
             update_time = #{updateTime, jdbcType=TIMESTAMP}
         where
-              goods_id = #{goodsId, jdbcType=BIGINT}
+            goods_id = #{goodsId, jdbcType=BIGINT}
+    </update>
+
+    <update id="updateSellStatusBatch" parameterType="ltd.newbee.mall.entity.Goods">
+        update
+            tb_newbee_mall_goods_info
+        set
+            goods_sell_status = #{goodsSellStatus, jdbcType=TINYINT},
+            update_time = now()
+        where
+            goods_id
+        in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
     </update>
 </mapper>

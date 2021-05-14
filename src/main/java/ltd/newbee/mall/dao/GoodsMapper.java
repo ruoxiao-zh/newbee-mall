@@ -20,4 +20,6 @@ public interface GoodsMapper {
     Goods selectById(Long goodsId);
     
     int updateByPrimaryKey(Goods goods);
+    
+    int updateSellStatusBatch(Long[] ids, int goodsSellStatus);
 }

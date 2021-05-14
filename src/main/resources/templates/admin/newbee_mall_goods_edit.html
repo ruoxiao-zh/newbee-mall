@@ -101,11 +101,10 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label">上架状态:&nbsp;</label>
-                                <input name="goodsSellStatus" type="radio" id="goodsSellStatusTrue" checked=true
-                                       th:checked="${null==goods||(null !=goods and null !=goods.goodsSellStatus and goods.goodsSellStatus==0)} ?true:false"
-                                       value="0"/>&nbsp;上架&nbsp;
+                                <input name="goodsSellStatus" type="radio" id="goodsSellStatusTrue" value="0"
+                                       th:checked="${null == goods || (null != goods and null != goods.goodsSellStatus and goods.goodsSellStatus == 0)} ? true : false"/>&nbsp;上架&nbsp;
                                 <input name="goodsSellStatus" type="radio" id="goodsSellStatusFalse" value="1"
-                                       th:checked="${null !=goods and null !=goods.goodsSellStatus and goods.goodsSellStatus==1} ?true:false"/>&nbsp;下架&nbsp;
+                                       th:checked="${null != goods and null != goods.goodsSellStatus and goods.goodsSellStatus == 1} ? true : false"/>&nbsp;下架&nbsp;
                             </div>
                             <div class="form-group">
                                 <div class="form-group">

@@ -2,6 +2,8 @@ package ltd.newbee.mall.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.util.Date;
+
 /**
  * @Author Richard
  * @Date 2021/5/11 4:25 PM
@@ -18,13 +20,13 @@ public class Goods {
     public Integer sellingPrice;
     public Integer stockNum;
     public String  tag;
-    public String  goodsSellStatus;
+    public Byte    goodsSellStatus;
     public Integer createUser;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    public String  createTime;
+    public Date    createTime;
     public Integer updateUser;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    public String  updateTime;
+    public Date    updateTime;
     
     public Long getGoodsId() {
         return goodsId;
@@ -114,11 +116,11 @@ public class Goods {
         this.tag = tag;
     }
     
-    public String getGoodsSellStatus() {
+    public Byte getGoodsSellStatus() {
         return goodsSellStatus;
     }
     
-    public void setGoodsSellStatus(String goodsSellStatus) {
+    public void setGoodsSellStatus(Byte goodsSellStatus) {
         this.goodsSellStatus = goodsSellStatus;
     }
     
@@ -130,11 +132,11 @@ public class Goods {
         this.createUser = createUser;
     }
     
-    public String getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
     
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
     
@@ -146,11 +148,11 @@ public class Goods {
         this.updateUser = updateUser;
     }
     
-    public String getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
     
-    public void setUpdateTime(String updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
     
@@ -168,11 +170,11 @@ public class Goods {
                 ", sellingPrice=" + sellingPrice +
                 ", stockNum=" + stockNum +
                 ", tag='" + tag + '\'' +
-                ", goodsSellStatus='" + goodsSellStatus + '\'' +
+                ", goodsSellStatus=" + goodsSellStatus +
                 ", createUser=" + createUser +
-                ", createTime='" + createTime + '\'' +
+                ", createTime=" + createTime +
                 ", updateUser=" + updateUser +
-                ", updateTime='" + updateTime + '\'' +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }

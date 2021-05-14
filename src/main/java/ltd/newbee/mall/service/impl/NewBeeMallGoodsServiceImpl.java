@@ -10,6 +10,7 @@ import ltd.newbee.mall.util.ResultGenerator;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,13 +49,26 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
     public String updateNewBeeMallGoods(Goods goods) {
         Goods temp = goodsMapper.selectById(goods.getGoodsId());
         if (temp == null) {
-            return ServiceResultEnum.ERROR.getResult();
+            return ServiceResultEnum.DATA_NOT_EXIST.getResult();
         }
     
+        goods.setCreateTime(new Date());
+        goods.setUpdateTime(new Date());
+        goods.setCreateUser(0);
+        goods.setUpdateUser(0);
         if (goodsMapper.updateByPrimaryKey(goods) > 0) {
             return ServiceResultEnum.SUCCESS.getResult();
         }
         
         return ServiceResultEnum.DB_ERROR.getResult();
+    }
+    
+    @Override
+    public Boolean updateSellStatus(Long[] ids, int sellStatus) {
+        if (ids.length < 1) {
+            return false;
+        }
+    
+        return goodsMapper.updateSellStatusBatch(ids, sellStatus) > 0;
     }
 }
