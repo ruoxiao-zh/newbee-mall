@@ -1,6 +1,7 @@
 package ltd.newbee.mall.dao;
 
 import ltd.newbee.mall.entity.User;
+import ltd.newbee.mall.util.PageQueryUtil;
 
 import java.util.List;
 
@@ -8,31 +9,11 @@ import java.util.List;
  * @author Richard
  */
 public interface UserMapper {
+    User selectByLoginName(String loginName);
     
-    /**
-     * @return
-     */
-    List<User> findAllUsers();
+    int insertSelective(User registerUser);
     
-    /**
-     * @param user
-     * @return
-     */
-    int insertUser(User user);
-    
-    /**
-     * @param user
-     * @return
-     */
-    int updateUser(User user);
-    
-    /**
-     * @param id
-     * @return
-     */
-    int deleteUser(Integer id);
-    
-    List<User> findUsers(Integer page, Integer limit);
+    List<User> findUsers(PageQueryUtil pageQueryUtil);
     
     int getTotalUser();
 }

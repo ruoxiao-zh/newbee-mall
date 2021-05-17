@@ -3,40 +3,105 @@
 <mapper namespace="ltd.newbee.mall.dao.UserMapper">
 
     <resultMap type="ltd.newbee.mall.entity.User" id="UserResult">
-        <result property="id" column="id"/>
-        <result property="name" column="name"/>
-        <result property="password" column="password"/>
+        <result property="userId" column="user_id" jdbcType="BIGINT" />
+        <result property="nickName" column="nick_name" jdbcType="VARCHAR" />
+        <result property="loginName" column="login_name" jdbcType="VARCHAR" />
+        <result property="passwordMd5" column="password_md5" jdbcType="VARCHAR" />
+        <result property="introduceSing" column="introduce_sign" jdbcType="VARCHAR" />
+        <result property="address" column="address" jdbcType="VARCHAR" />
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER" />
+        <result property="lockedFlag" column="locked_flag" jdbcType="INTEGER" />
+        <result property="createTime" column="create_time" jdbcType="VARCHAR" />
     </resultMap>
 
-    <select id="findAllUsers" resultMap="UserResult">
-        select id, name, password
-        from tb_user
-        order by id desc
+    <sql id="Base_Column_List">
+        user_id, nick_name, login_name, password_md5, introduce_sign,
+        address, is_deleted, locked_flag, create_time
+    </sql>
+
+    <select id="selectByLoginName" resultMap="UserResult">
+        select
+            count(1)
+        from
+            tb_newbee_mall_user
+        where
+            login_name = #{loginName, jdbcType=VARCHAR}
+        limit
+            1
     </select>
 
-    <insert id="insertUser" parameterType="ltd.newbee.mall.entity.User">
-        insert into tb_user(name, password)
-        values (#{name}, #{password})
+    <insert id="insertSelective" parameterType="ltd.newbee.mall.entity.User">
+        insert into
+            tb_newbee_mall_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="nickName != null">
+                nick_name,
+            </if>
+            <if test="loginName != null">
+                login_name,
+            </if>
+            <if test="passwordMd5 != null">
+                password_md5,
+            </if>
+            <if test="introduceSign != null">
+                introduce_sign,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="lockedFlag != null">
+                locked_flag,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="nickName != null">
+                #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="loginName != null">
+                #{loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="passwordMd5 != null">
+                #{passwordMd5,jdbcType=VARCHAR},
+            </if>
+            <if test="introduceSign != null">
+                #{introduceSign,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="lockedFlag != null">
+                #{lockedFlag,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
     </insert>
-
-    <update id="updateUser" parameterType="ltd.newbee.mall.entity.User">
-        update tb_user
-        set name=#{name},
-            password=#{password}
-        where id = #{id}
-    </update>
-
-    <delete id="deleteUser" parameterType="int">
-        delete
-        from tb_user
-        where id = #{id}
-    </delete>
 
     <!-- 查询用户列表 -->
     <select id="findUsers" parameterType="Map" resultMap="UserResult">
         select
-        id,name,password from tb_user
-        order by id desc
+        <include refid="Base_Column_List"/>
+        from
+            tb_newbee_mall_user
+        order by
+            id
+        desc
         <if test="page != null and limit != null">
             limit #{page}, #{limit}
         </if>
@@ -44,8 +109,10 @@
 
     <!-- 查询用户总数 -->
     <select id="getTotalUser" parameterType="Map" resultType="int">
-        select count(*)
-        from tb_user
+        select
+            count(1)
+        from
+            tb_newbee_mall_user
     </select>
 
 </mapper>
