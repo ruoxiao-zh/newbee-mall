@@ -19,4 +19,6 @@ public interface NewBeeMallGoodsService {
     String updateNewBeeMallGoods(Goods goods);
     
     Boolean updateSellStatus(Long[] ids, int sellStatus);
+    
+    Goods getNewBeeMallGoodsById(Long goodsId);
 }

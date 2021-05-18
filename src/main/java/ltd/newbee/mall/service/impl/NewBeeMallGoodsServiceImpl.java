@@ -6,7 +6,6 @@ import ltd.newbee.mall.entity.Goods;
 import ltd.newbee.mall.service.NewBeeMallGoodsService;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
-import ltd.newbee.mall.util.ResultGenerator;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -51,7 +50,7 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
         if (temp == null) {
             return ServiceResultEnum.DATA_NOT_EXIST.getResult();
         }
-    
+        
         goods.setCreateTime(new Date());
         goods.setUpdateTime(new Date());
         goods.setCreateUser(0);
@@ -68,7 +67,16 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
         if (ids.length < 1) {
             return false;
         }
-    
+        
         return goodsMapper.updateSellStatusBatch(ids, sellStatus) > 0;
+    }
+    
+    @Override
+    public Goods getNewBeeMallGoodsById(Long goodsId) {
+        if (goodsId < 1) {
+            return null;
+        }
+        
+        return goodsMapper.selectById(goodsId);
     }
 }
