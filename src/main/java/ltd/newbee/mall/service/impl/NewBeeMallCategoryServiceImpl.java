@@ -4,6 +4,7 @@ import ltd.newbee.mall.common.Constants;
 import ltd.newbee.mall.common.NewBeeMallCategoryLevelEnum;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.controller.vo.NewBeeMallIndexCategoryVO;
+import ltd.newbee.mall.controller.vo.SearchPageCategoryVO;
 import ltd.newbee.mall.controller.vo.SecondLevelCategoryVO;
 import ltd.newbee.mall.controller.vo.ThirdLevelCategoryVO;
 import ltd.newbee.mall.dao.CategoryMapper;
@@ -154,6 +155,29 @@ public class NewBeeMallCategoryServiceImpl implements NewBeeMallCategoryService 
             }
             
             return newBeeMallIndexCategoryVOS;
+        }
+        
+        return null;
+    }
+    
+    @Override
+    public SearchPageCategoryVO getCategoriesForSearch(Long categoryId) {
+        SearchPageCategoryVO searchPageCategoryVO    = new SearchPageCategoryVO();
+        Category             thirdLevelGoodsCategory = categoryMapper.selectByPrimaryKey(categoryId);
+        if (thirdLevelGoodsCategory != null && thirdLevelGoodsCategory.getCategoryLevel() == NewBeeMallCategoryLevelEnum.LEVEL_THREE.getLevel()) {
+            //获取当前三级分类的二级分类
+            Category secondLevelGoodsCategory = categoryMapper.selectByPrimaryKey(thirdLevelGoodsCategory.getParentId());
+            if (secondLevelGoodsCategory != null && secondLevelGoodsCategory.getCategoryLevel() == NewBeeMallCategoryLevelEnum.LEVEL_TWO.getLevel()) {
+                //获取当前二级分类下的三级分类List
+                List<Category> thirdLevelCategories = categoryMapper.selectByLevelAndParentIdsAndNumber(
+                        Collections.singletonList(secondLevelGoodsCategory.getCategoryId()),
+                        NewBeeMallCategoryLevelEnum.LEVEL_THREE.getLevel(), Constants.SEARCH_CATEGORY_NUMBER);
+                searchPageCategoryVO.setCurrentCategoryName(thirdLevelGoodsCategory.getCategoryName());
+                searchPageCategoryVO.setSecondLevelCategoryName(secondLevelGoodsCategory.getCategoryName());
+                searchPageCategoryVO.setThirdLevelCategoryList(thirdLevelCategories);
+                
+                return searchPageCategoryVO;
+            }
         }
         
         return null;

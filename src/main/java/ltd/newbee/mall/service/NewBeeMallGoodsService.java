@@ -21,4 +21,6 @@ public interface NewBeeMallGoodsService {
     Boolean updateSellStatus(Long[] ids, int sellStatus);
     
     Goods getNewBeeMallGoodsById(Long goodsId);
+    
+    PageResult searchNewBeeMallGoods(PageQueryUtil pageUtil);
 }

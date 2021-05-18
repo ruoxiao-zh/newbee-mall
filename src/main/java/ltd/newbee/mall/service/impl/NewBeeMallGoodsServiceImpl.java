@@ -1,14 +1,18 @@
 package ltd.newbee.mall.service.impl;
 
 import ltd.newbee.mall.common.ServiceResultEnum;
+import ltd.newbee.mall.controller.vo.NewBeeMallSearchGoodsVO;
 import ltd.newbee.mall.dao.GoodsMapper;
 import ltd.newbee.mall.entity.Goods;
 import ltd.newbee.mall.service.NewBeeMallGoodsService;
+import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -78,5 +82,31 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
         }
         
         return goodsMapper.selectById(goodsId);
+    }
+    
+    @Override
+    public PageResult searchNewBeeMallGoods(PageQueryUtil pageUtil) {
+        List<Goods>                   goodsList                = goodsMapper.findNewBeeMallGoodsListBySearch(pageUtil);
+        int                           total                    = goodsMapper.getTotalNewBeeMallGoodsBySearch(pageUtil);
+        List<NewBeeMallSearchGoodsVO> newBeeMallSearchGoodsVOS = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(goodsList)) {
+            newBeeMallSearchGoodsVOS = BeanUtil.copyList(goodsList, NewBeeMallSearchGoodsVO.class);
+            for (NewBeeMallSearchGoodsVO newBeeMallSearchGoodsVO : newBeeMallSearchGoodsVOS) {
+                String goodsName  = newBeeMallSearchGoodsVO.getGoodsName();
+                String goodsIntro = newBeeMallSearchGoodsVO.getGoodsIntro();
+                // 字符串过长导致文字超出的问题
+                if (goodsName.length() > 28) {
+                    goodsName = goodsName.substring(0, 28) + "...";
+                    newBeeMallSearchGoodsVO.setGoodsName(goodsName);
+                }
+                
+                if (goodsIntro.length() > 30) {
+                    goodsIntro = goodsIntro.substring(0, 30) + "...";
+                    newBeeMallSearchGoodsVO.setGoodsIntro(goodsIntro);
+                }
+            }
+        }
+        
+        return new PageResult(newBeeMallSearchGoodsVOS, total, pageUtil.getLimit(), pageUtil.getPage());
     }
 }

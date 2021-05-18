@@ -24,4 +24,8 @@ public interface GoodsMapper {
     int updateSellStatusBatch(Long[] ids, int goodsSellStatus);
     
     List<Goods> selectByPrimaryKeys(List<Long> goodsIds);
+    
+    List<Goods> findNewBeeMallGoodsListBySearch(PageQueryUtil pageUtil);
+    
+    int getTotalNewBeeMallGoodsBySearch(PageQueryUtil pageUtil);
 }
