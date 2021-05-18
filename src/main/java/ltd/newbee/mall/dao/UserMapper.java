@@ -16,4 +16,6 @@ public interface UserMapper {
     List<User> findUsers(PageQueryUtil pageQueryUtil);
     
     int getTotalUser();
+    
+    User selectByLoginNameAndPasswd(String loginName, String password);
 }

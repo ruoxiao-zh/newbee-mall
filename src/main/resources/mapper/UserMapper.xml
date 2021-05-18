@@ -7,7 +7,7 @@
         <result property="nickName" column="nick_name" jdbcType="VARCHAR" />
         <result property="loginName" column="login_name" jdbcType="VARCHAR" />
         <result property="passwordMd5" column="password_md5" jdbcType="VARCHAR" />
-        <result property="introduceSing" column="introduce_sign" jdbcType="VARCHAR" />
+        <result property="introduceSign" column="introduce_sign" jdbcType="VARCHAR" />
         <result property="address" column="address" jdbcType="VARCHAR" />
         <result property="isDeleted" column="is_deleted" jdbcType="INTEGER" />
         <result property="lockedFlag" column="locked_flag" jdbcType="INTEGER" />
@@ -115,4 +115,16 @@
             tb_newbee_mall_user
     </select>
 
+    <select id="selectByLoginNameAndPasswd" resultMap="UserResult">
+        select
+            <include refid="Base_Column_List"/>
+        from
+             tb_newbee_mall_user
+        where
+            login_name = #{loginName}
+        and
+            password_md5 = #{password}
+        and
+            is_deleted = 0
+    </select>
 </mapper>
