@@ -23,7 +23,7 @@ import java.util.Map;
  * @date 2021/5/18 10:48 AM
  */
 @Controller
-@RequestMapping(value = "/goods")
+@RequestMapping(value = "/")
 public class GoodsController {
     
     @Resource
@@ -32,7 +32,7 @@ public class GoodsController {
     @Resource
     NewBeeMallCategoryService newBeeMallCategoryService;
     
-    @RequestMapping(value = "/detail/{goodsId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/goods/detail/{goodsId}", method = RequestMethod.GET)
     public String goodsDetail(HttpServletRequest request, @PathVariable("goodsId") Long goodsId) {
         if (goodsId < 1) {
             return "error/error_5xx";

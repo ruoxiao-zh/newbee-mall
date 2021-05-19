@@ -16,33 +16,37 @@
 
     <select id="login" resultMap="AdminUserResult">
         select
-        <include refid="Base_Column_List"/>
-        from tb_newbee_mall_admin_user
-        where login_user_name = #{userName, jdbcType=VARCHAR} AND login_password=#{password, jdbcType=VARCHAR} AND
-        locked
-        = 0
+            <include refid="Base_Column_List"/>
+        from
+            tb_newbee_mall_admin_user
+        where
+            login_user_name = #{userName, jdbcType=VARCHAR}
+        AND
+            login_password=#{password, jdbcType=VARCHAR}
+        AND
+            locked= 0
     </select>
 
     <select id="getUserDetailById" resultMap="AdminUserResult">
         select
-        <include refid="Base_Column_List"/>
+            <include refid="Base_Column_List"/>
         from
-        tb_newbee_mall_admin_user
+            tb_newbee_mall_admin_user
         where
-        admin_user_id = #{loginUserId, jdbcType=VARCHAR}
+            admin_user_id = #{loginUserId, jdbcType=VARCHAR}
         AND
-        locked = 0
+            locked = 0
     </select>
 
     <select id="selectByPrimaryKey" resultMap="AdminUserResult">
         select
-        <include refid="Base_Column_List"/>
+            <include refid="Base_Column_List"/>
         from
-        tb_newbee_mall_admin_user
+            tb_newbee_mall_admin_user
         where
-        admin_user_id = #{loginUserId, jdbcType=VARCHAR}
+            admin_user_id = #{loginUserId, jdbcType=VARCHAR}
         AND
-        locked = 0
+            locked = 0
     </select>
 
     <update id="updateByPrimaryKeySelective" parameterType="ltd.newbee.mall.entity.AdminUser">
